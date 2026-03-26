@@ -1,0 +1,1 @@
+# mygaru-idr-ios-sdk
