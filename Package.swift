@@ -16,8 +16,8 @@ let package = Package(
     targets: [
         .binaryTarget(
             name: "myGaruIdent",
-            url: "https://github.com/myGaru/myGaruIdent/releases/download/0.0.2/myGaruIdent.xcframework.zip",
-            checksum: "8675a74c6abb1e5e7601072ddd047f7d2398e7e8b4650779ef92b4a4e6e99d0e"
+            url: "https://github.com/myGaru/mygaru-idr-ios-sdk/releases/download/0.0.3/myGaruIdent.xcframework.zip",
+            checksum: "1f24d16cf5ae010e21f9236d2c6d7d6359dfbbc7a6ab7e12f5eae2cf5fdabd44"
         ),
         .testTarget(
             name: "myGaruIdentTests",
