@@ -1,9 +1,6 @@
 # myGaru Ident iOS SDK
 
-`myGaruIdent` is an iOS framework that provides a simple API to:
-
-1. Request a one-time token (`OTP`) from myGaru Ident service.
-2. Exchange that token for a persistent user identifier (`PUID`).
+`myGaruIdent` is an iOS framework that provides a simple API to request a one-time token (`OTP`) from myGaru Ident service.
 
 ## 📦 Requirements
 
@@ -17,14 +14,12 @@
 
 Main entry point:
 
-- `MyGaruIdent(partnerID: String)`
+- `MyGaruIdent()`
 
 Public methods:
 
 - `getOTP() async throws -> String`
 - `getOTP(completion: @escaping @Sendable (Result<String, Error>) -> Void)`
-- `getPUID(otp: String) async throws -> String`
-- `getPUID(otp: String, completion: @escaping @Sendable (Result<String, Error>) -> Void)`
 
 ## Integration (Swift Package Manager)
 
@@ -52,7 +47,7 @@ Add the dependency:
 dependencies: [
     .package(
         url: "https://github.com/mygaru/mygaru-idr-ios-sdk",
-        from: "0.0.2"
+        from: "0.0.4"
     )
 ]
 ```
@@ -68,20 +63,17 @@ Add the product to your target:
 )
 ```
 
-## Usage (Async/Await)
-
 ```swift
 import Foundation
 import myGaruIdent
 
 final class IdentService {
-    private let ident = MyGaruIdent(partnerID: "YOUR_PARTNER_ID")
+    private let ident = MyGaruIdent()
 
     func fetchPUID() async {
         do {
             let otp = try await ident.getOTP()
-            let puid = try await ident.getPUID(otp: otp)
-            print("PUID:", puid)
+            print("OTP:", otp)
         } catch {
             print("Ident error:", error.localizedDescription)
         }
@@ -95,20 +87,12 @@ final class IdentService {
 import Foundation
 import myGaruIdent
 
-let ident = MyGaruIdent(partnerID: "YOUR_PARTNER_ID")
+let ident = MyGaruIdent()
 
 ident.getOTP { result in
     switch result {
     case .success(let otp):
-        ident.getPUID(otp: otp) { result in
-            switch result {
-            case .success(let puid):
-                print("PUID:", puid)
-            case .failure(let error):
-                print("PUID error:", error.localizedDescription)
-            }
-        }
-
+        print("OTP:", otp)
     case .failure(let error):
         print("OTP error:", error.localizedDescription)
     }
